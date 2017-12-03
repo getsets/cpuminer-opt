@@ -51,7 +51,7 @@
 #ifndef min
 #define min(a,b) (a>b ? (b) :(a))
 #endif
-#ifndef max 
+#ifndef max
 #define max(a,b) (a<b ? (b) : (a))
 #endif
 */
@@ -79,25 +79,25 @@ void *alloca (size_t);
 //#define LOG_BLUE 0x10 /* unique value */
 //#else
 enum {
-	LOG_ERR,
-	LOG_WARNING,
-	LOG_NOTICE,
-	LOG_INFO,
-	LOG_DEBUG,
-	/* custom notices */
-	LOG_BLUE = 0x10,
+  LOG_ERR,
+  LOG_WARNING,
+  LOG_NOTICE,
+  LOG_INFO,
+  LOG_DEBUG,
+  /* custom notices */
+  LOG_BLUE = 0x10,
 };
 //#endif
 
 static inline bool is_windows(void)
 {
 #ifdef WIN32
-	return true;
+  return true;
 #else
-	return false;
+  return false;
 #endif
 }
- 
+
 #include "compat.h"
 
 #ifndef ARRAY_SIZE
@@ -114,9 +114,9 @@ static inline bool is_windows(void)
 static inline uint32_t swab32(uint32_t v)
 {
 #ifdef WANT_BUILTIN_BSWAP
-	return __builtin_bswap32(v);
+  return __builtin_bswap32(v);
 #else
-	return bswap_32(v);
+  return bswap_32(v);
 #endif
 }
 
@@ -132,29 +132,29 @@ typedef unsigned char uchar;
 #if !HAVE_DECL_BE32DEC
 static inline uint32_t be32dec(const void *pp)
 {
-	const uint8_t *p = (uint8_t const *)pp;
-	return ((uint32_t)(p[3]) + ((uint32_t)(p[2]) << 8) +
-	    ((uint32_t)(p[1]) << 16) + ((uint32_t)(p[0]) << 24));
+  const uint8_t *p = (uint8_t const *)pp;
+  return ((uint32_t)(p[3]) + ((uint32_t)(p[2]) << 8) +
+      ((uint32_t)(p[1]) << 16) + ((uint32_t)(p[0]) << 24));
 }
 #endif
 
 #if !HAVE_DECL_LE32DEC
 static inline uint32_t le32dec(const void *pp)
 {
-	const uint8_t *p = (uint8_t const *)pp;
-	return ((uint32_t)(p[0]) + ((uint32_t)(p[1]) << 8) +
-	    ((uint32_t)(p[2]) << 16) + ((uint32_t)(p[3]) << 24));
+  const uint8_t *p = (uint8_t const *)pp;
+  return ((uint32_t)(p[0]) + ((uint32_t)(p[1]) << 8) +
+      ((uint32_t)(p[2]) << 16) + ((uint32_t)(p[3]) << 24));
 }
 #endif
 
 #if !HAVE_DECL_BE32ENC
 static inline void be32enc(void *pp, uint32_t x)
 {
-	uint8_t *p = (uint8_t *)pp;
-	p[3] = x & 0xff;
-	p[2] = (x >> 8) & 0xff;
-	p[1] = (x >> 16) & 0xff;
-	p[0] = (x >> 24) & 0xff;
+  uint8_t *p = (uint8_t *)pp;
+  p[3] = x & 0xff;
+  p[2] = (x >> 8) & 0xff;
+  p[1] = (x >> 16) & 0xff;
+  p[0] = (x >> 24) & 0xff;
 }
 #endif
 
@@ -181,28 +181,28 @@ static inline void swab32_array( uint32_t* dst_p, uint32_t* src_p, int n )
 #if !HAVE_DECL_LE32ENC
 static inline void le32enc(void *pp, uint32_t x)
 {
-	uint8_t *p = (uint8_t *)pp;
-	p[0] = x & 0xff;
-	p[1] = (x >> 8) & 0xff;
-	p[2] = (x >> 16) & 0xff;
-	p[3] = (x >> 24) & 0xff;
+  uint8_t *p = (uint8_t *)pp;
+  p[0] = x & 0xff;
+  p[1] = (x >> 8) & 0xff;
+  p[2] = (x >> 16) & 0xff;
+  p[3] = (x >> 24) & 0xff;
 }
 #endif
 
 #if !HAVE_DECL_LE16DEC
 static inline uint16_t le16dec(const void *pp)
 {
-	const uint8_t *p = (uint8_t const *)pp;
-	return ((uint16_t)(p[0]) + ((uint16_t)(p[1]) << 8));
+  const uint8_t *p = (uint8_t const *)pp;
+  return ((uint16_t)(p[0]) + ((uint16_t)(p[1]) << 8));
 }
 #endif
 
 #if !HAVE_DECL_LE16ENC
 static inline void le16enc(void *pp, uint16_t x)
 {
-	uint8_t *p = (uint8_t *)pp;
-	p[0] = x & 0xff;
-	p[1] = (x >> 8) & 0xff;
+  uint8_t *p = (uint8_t *)pp;
+  p[0] = x & 0xff;
+  p[1] = (x >> 8) & 0xff;
 }
 #endif
 
@@ -246,26 +246,26 @@ void work_copy(struct work *dest, const struct work *src);
 void *api_thread(void *userdata);
 
 struct cpu_info {
-	int thr_id;
-	int accepted;
-	int rejected;
-	double khashes;
-	bool has_monitoring;
-	float cpu_temp;
-	int cpu_fan;
-	uint32_t cpu_clock;
+  int thr_id;
+  int accepted;
+  int rejected;
+  double khashes;
+  bool has_monitoring;
+  float cpu_temp;
+  int cpu_fan;
+  uint32_t cpu_clock;
 };
 
 struct thr_api {
-	int id;
-	pthread_t pth;
-	struct thread_q	*q;
+  int id;
+  pthread_t pth;
+  struct thread_q  *q;
 };
 /* end of api */
 
 
-#define JSON_RPC_LONGPOLL	(1 << 0)
-#define JSON_RPC_QUIET_404	(1 << 1)
+#define JSON_RPC_LONGPOLL  (1 << 0)
+#define JSON_RPC_QUIET_404  (1 << 1)
 #define JSON_RPC_IGNOREERR  (1 << 2)
 
 #define JSON_BUF_LEN 512
@@ -304,7 +304,7 @@ struct thr_api {
 void   applog(int prio, const char *fmt, ...);
 void   restart_threads(void);
 extern json_t *json_rpc_call( CURL *curl, const char *url, const char *userpass,
-                	const char *rpc_req, int *curl_err, int flags );
+                  const char *rpc_req, int *curl_err, int flags );
 void   bin2hex( char *s, const unsigned char *p, size_t len );
 char  *abin2hex( const unsigned char *p, size_t len );
 bool   hex2bin( unsigned char *p, const char *hexstr, size_t len );
@@ -340,63 +340,63 @@ void   cpu_brand_string( char* s );
 float cpu_temp( int core );
 
 struct work {
-	uint32_t data[48];
-	uint32_t target[8];
+  uint32_t data[48];
+  uint32_t target[8];
 
-	double targetdiff;
-	double shareratio;
-	double sharediff;
+  double targetdiff;
+  double shareratio;
+  double sharediff;
 
-	int height;
-	char *txs;
-	char *workid;
+  int height;
+  char *txs;
+  char *workid;
 
-	char *job_id;
-	size_t xnonce2_len;
-	unsigned char *xnonce2;
+  char *job_id;
+  size_t xnonce2_len;
+  unsigned char *xnonce2;
         uint32_t nonces[4];
         bool     nfound[4];
 };
 
 struct stratum_job {
-	char *job_id;
-	unsigned char prevhash[32];
+  char *job_id;
+  unsigned char prevhash[32];
         unsigned char claim[32]; // lbry
-	size_t coinbase_size;
-	unsigned char *coinbase;
-	unsigned char *xnonce2;
-	int merkle_count;
-	unsigned char **merkle;
-	unsigned char version[4];
-	unsigned char nbits[4];
-	unsigned char ntime[4];
-	bool clean;
-	double diff;
+  size_t coinbase_size;
+  unsigned char *coinbase;
+  unsigned char *xnonce2;
+  int merkle_count;
+  unsigned char **merkle;
+  unsigned char version[4];
+  unsigned char nbits[4];
+  unsigned char ntime[4];
+  bool clean;
+  double diff;
 };
 
 struct stratum_ctx {
-	char *url;
+  char *url;
 
-	CURL *curl;
-	char *curl_url;
-	char curl_err_str[CURL_ERROR_SIZE];
-	curl_socket_t sock;
-	size_t sockbuf_size;
-	char *sockbuf;
-	pthread_mutex_t sock_lock;
+  CURL *curl;
+  char *curl_url;
+  char curl_err_str[CURL_ERROR_SIZE];
+  curl_socket_t sock;
+  size_t sockbuf_size;
+  char *sockbuf;
+  pthread_mutex_t sock_lock;
 
-	double next_diff;
-	double sharediff;
+  double next_diff;
+  double sharediff;
 
-	char *session_id;
-	size_t xnonce1_size;
-	unsigned char *xnonce1;
-	size_t xnonce2_size;
-	struct stratum_job job;
-	struct work work;
-	pthread_mutex_t work_lock;
+  char *session_id;
+  size_t xnonce1_size;
+  unsigned char *xnonce1;
+  size_t xnonce2_size;
+  struct stratum_job job;
+  struct work work;
+  pthread_mutex_t work_lock;
 
-	int bloc_height;
+  int bloc_height;
 };
 
 bool stratum_socket_full(struct stratum_ctx *sctx, int timeout);
@@ -477,68 +477,68 @@ uint32_t* get_stratum_job_ntime();
 
 enum algos {
         ALGO_NULL,
-        ALGO_ARGON2,
-        ALGO_AXIOM,       
+//        ALGO_ARGON2,
+        ALGO_AXIOM,
         ALGO_BASTION,
-        ALGO_BLAKE,       
-        ALGO_BLAKECOIN,   
+        ALGO_BLAKE,
+        ALGO_BLAKECOIN,
 //        ALGO_BLAKE2B,
-        ALGO_BLAKE2S,     
-        ALGO_BMW,        
-        ALGO_C11,         
-        ALGO_CRYPTOLIGHT, 
-        ALGO_CRYPTONIGHT, 
+        ALGO_BLAKE2S,
+        ALGO_BMW,
+//        ALGO_C11,
+        ALGO_CRYPTOLIGHT,
+        ALGO_CRYPTONIGHT,
         ALGO_DECRED,
-        ALGO_DEEP,
+//        ALGO_DEEP,
         ALGO_DMD_GR,
-        ALGO_DROP,        
-        ALGO_FRESH,       
-        ALGO_GROESTL,     
+//        ALGO_DROP,
+//        ALGO_FRESH,
+        ALGO_GROESTL,
         ALGO_HEAVY,
-        ALGO_HMQ1725,
-        ALGO_HODL,
+//        ALGO_HMQ1725,
+//        ALGO_HODL,
         ALGO_JHA,
         ALGO_KECCAK,
         ALGO_LBRY,
-        ALGO_LUFFA,       
-        ALGO_LYRA2RE,       
-        ALGO_LYRA2REV2,   
+        ALGO_LUFFA,
+        ALGO_LYRA2RE,
+        ALGO_LYRA2REV2,
         ALGO_LYRA2Z,
         ALGO_LYRA2Z330,
         ALGO_M7M,
-        ALGO_MYR_GR,      
-        ALGO_NEOSCRYPT,
-        ALGO_NIST5,       
-        ALGO_PENTABLAKE,  
-        ALGO_PHI1612,
-        ALGO_PLUCK,       
+        ALGO_MYR_GR,
+//        ALGO_NEOSCRYPT,
+        ALGO_NIST5,
+        ALGO_PENTABLAKE,
+//        ALGO_PHI1612,
+        ALGO_PLUCK,
         ALGO_POLYTIMOS,
         ALGO_QUARK,
-        ALGO_QUBIT,       
+//        ALGO_QUBIT,
         ALGO_SCRYPT,
         ALGO_SCRYPTJANE,
         ALGO_SHA256D,
         ALGO_SHA256T,
-        ALGO_SHAVITE3,    
-        ALGO_SKEIN,       
-        ALGO_SKEIN2,      
+        ALGO_SHAVITE3,
+        ALGO_SKEIN,
+        ALGO_SKEIN2,
         ALGO_SKUNK,
-        ALGO_TIMETRAVEL,
-        ALGO_TIMETRAVEL10,
+//        ALGO_TIMETRAVEL,
+//        ALGO_TIMETRAVEL10,
         ALGO_TRIBUS,
         ALGO_VANILLA,
         ALGO_VELTOR,
         ALGO_WHIRLPOOL,
         ALGO_WHIRLPOOLX,
-        ALGO_X11,
-        ALGO_X11EVO,         
-        ALGO_X11GOST,
-        ALGO_X13,         
-        ALGO_X13SM3,
-        ALGO_X14,        
-        ALGO_X15,       
-        ALGO_X17,
-        ALGO_XEVAN,
+//        ALGO_X11,
+//        ALGO_X11EVO,
+//        ALGO_X11GOST,
+//        ALGO_X13,
+//        ALGO_X13SM3,
+//        ALGO_X14,
+//        ALGO_X15,
+//        ALGO_X17,
+//        ALGO_XEVAN,
         ALGO_YESCRYPT,
         ALGO_YESCRYPTR16,
         ALGO_ZR5,
@@ -546,7 +546,7 @@ enum algos {
 };
 static const char* const algo_names[] = {
         NULL,
-        "argon2",
+//        "argon2",
         "axiom",
         "bastion",
         "blake",
@@ -554,18 +554,18 @@ static const char* const algo_names[] = {
 //        "blake2b",
         "blake2s",
         "bmw",
-        "c11",
+//        "c11",
         "cryptolight",
         "cryptonight",
         "decred",
-        "deep",
+//        "deep",
         "dmd-gr",
-        "drop",
-        "fresh",
+//        "drop",
+//        "fresh",
         "groestl",
         "heavy",
-        "hmq1725",
-        "hodl",
+//        "hmq1725",
+//        "hodl",
         "jha",
         "keccak",
         "lbry",
@@ -576,14 +576,14 @@ static const char* const algo_names[] = {
         "lyra2z330",
         "m7m",
         "myr-gr",
-        "neoscrypt",
+//        "neoscrypt",
         "nist5",
         "pentablake",
-        "phi1612",
+//        "phi1612",
         "pluck",
         "polytimos",
         "quark",
-        "qubit",
+//        "qubit",
         "scrypt",
         "scryptjane",
         "sha256d",
@@ -592,22 +592,22 @@ static const char* const algo_names[] = {
         "skein",
         "skein2",
         "skunk",
-        "timetravel",
-        "timetravel10",
+//        "timetravel",
+//        "timetravel10",
         "tribus",
         "vanilla",
         "veltor",
         "whirlpool",
         "whirlpoolx",
-        "x11",
-        "x11evo",
-        "x11gost",
-        "x13",
-        "x13sm3",
-        "x14",
-        "x15",
-        "x17",
-        "xevan",
+//        "x11",
+//        "x11evo",
+//        "x11gost",
+//        "x13",
+//        "x13sm3",
+//        "x14",
+//        "x15",
+//        "x17",
+//        "xevan",
         "yescrypt",
         "yescryptr16",
         "zr5",
@@ -670,25 +670,18 @@ static char const usage[] = "\
 Usage: " PACKAGE_NAME " [OPTIONS]\n\
 Options:\n\
   -a, --algo=ALGO       specify the algorithm to use\n\
-                          argon2\n\
                           axiom        Shabal-256 MemoHash\n\
                           bastion\n\
                           blake        blake256r14 (SFR)\n\
                           blakecoin    blake256r8\n\
                           blake2s      Blake-2 S\n\
                           bmw          BMW 256\n\
-                          c11          Chaincoin\n\
                           cryptolight  Cryptonight-light\n\
                           cryptonight  cryptonote, Monero (XMR)\n\
                           decred       Blake256r14dcr\n\
-                          deep         Deepcoin (DCN)\n\
                           dmd-gr       Diamond\n\
-                          drop         Dropcoin\n\
-                          fresh        Fresh\n\
                           groestl      Groestl coin\n\
                           heavy        Heavy\n\
-                          hmq1725      Espers\n\
-                          hodl         Hodlcoin\n\
                           jha          jackppot (Jackpotcoin)\n\
                           keccak       Keccak\n\
                           lbry         LBC, LBRY Credits\n\
@@ -699,14 +692,10 @@ Options:\n\
                           lyra2z330    Lyra2 330 rows, Zoin (ZOI)\n\
                           m7m          Magi (XMG)\n\
                           myr-gr       Myriad-Groestl\n\
-                          neoscrypt    NeoScrypt(128, 2, 1)\n\
                           nist5        Nist5\n\
                           pentablake   5 x blake512\n\
-                          phi1612      phi, LUX coin\n\
                           pluck        Pluck:128 (Supcoin)\n\
                           polytimos\n\
-                          quark        Quark\n\
-                          qubit        Qubit\n\
                           scrypt       scrypt(1024, 1, 1) (default)\n\
                           scrypt:N     scrypt(N, 1, 1)\n\
                           scryptjane:nf\n\
@@ -716,22 +705,11 @@ Options:\n\
                           skein        Skein+Sha (Skeincoin)\n\
                           skein2       Double Skein (Woodcoin)\n\
                           skunk        Signatum (SIGT)\n\
-                          timetravel   timeravel8, Machinecoin (MAC)\n\
-                          timetravel10 Bitcore (BTX)\n\
                           tribus       Denarius (DNR)\n\
                           vanilla      blake256r8vnl (VCash)\n\
                           veltor\n\
                           whirlpool\n\
                           whirlpoolx\n\
-                          x11          Dash\n\
-                          x11evo       Revolvercoin\n\
-                          x11gost      sib (SibCoin)\n\
-                          x13          X13\n\
-                          x13sm3       hsr (Hshare)\n\
-                          x14          X14\n\
-                          x15          X15\n\
-                          x17\n\
-                          xevan        Bitsend\n\
                           yescrypt     Globlboost-Y (BSTY)\n\
                           yescryptr16  Yenten (YTN)\n\
                           zr5          Ziftr\n\

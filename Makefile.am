@@ -5,15 +5,15 @@ else
 JANSSON_INCLUDES=
 endif
 
-EXTRA_DIST	= example-cfg.json nomacro.pl
+EXTRA_DIST  = example-cfg.json nomacro.pl
 
-SUBDIRS		= compat
+SUBDIRS    = compat
 
-ALL_INCLUDES	= @PTHREAD_FLAGS@ -fno-strict-aliasing $(JANSSON_INCLUDES) -I.
+ALL_INCLUDES  = @PTHREAD_FLAGS@ -fno-strict-aliasing $(JANSSON_INCLUDES) -I.
 
-bin_PROGRAMS	= cpuminer
+bin_PROGRAMS  = cpuminer
 
-dist_man_MANS	= cpuminer.1
+dist_man_MANS  = cpuminer.1
 
 cpuminer_SOURCES = \
   cpu-miner.c \
@@ -32,12 +32,6 @@ cpuminer_SOURCES = \
   crypto/hash.c \
   crypto/aesb.c \
   crypto/magimath.cpp \
-  algo/argon2/argon2a.c \
-  algo/argon2/ar2/argon2.c \
-  algo/argon2/ar2/opt.c \
-  algo/argon2/ar2/cores.c \
-  algo/argon2/ar2/ar2-scrypt-jane.c \
-  algo/argon2/ar2/blake2b.c \
   algo/axiom.c \
   algo/blake/sph_blake.c \
   algo/blake/blake-hash-4way.c \
@@ -63,10 +57,8 @@ cpuminer_SOURCES = \
   algo/cryptonight/cryptonight.c\
   algo/cubehash/sph_cubehash.c \
   algo/cubehash/sse2/cubehash_sse2.c\
-  algo/drop.c \
   algo/echo/sph_echo.c \
   algo/echo/aes_ni/hash.c\
-  algo/fresh.c \
   algo/gost/sph_gost.c \
   algo/groestl/sph_groestl.c \
   algo/groestl/groestl.c \
@@ -79,12 +71,6 @@ cpuminer_SOURCES = \
   algo/heavy/sph_hefty1.c \
   algo/heavy/heavy.c \
   algo/heavy/bastion.c \
-  algo/hmq1725.c \
-  algo/hodl/aes.c \
-  algo/hodl/hodl-gate.c \
-  algo/hodl/hodl-wolf.c \
-  algo/hodl/sha512_avx.c \
-  algo/hodl/sha512_avx2.c \
   algo/jh/sph_jh.c \
   algo/jh/jh-hash-4way.c \
   algo/jh/jha-gate.c \
@@ -107,7 +93,6 @@ cpuminer_SOURCES = \
   algo/lyra2/zcoin.c \
   algo/lyra2/lyra2z330.c \
   algo/m7m.c \
-  algo/neoscrypt.c \
   algo/nist5/nist5-gate.c \
   algo/nist5/nist5-4way.c \
   algo/nist5/nist5.c \
@@ -115,8 +100,6 @@ cpuminer_SOURCES = \
   algo/polytimos/polytimos-gate.c \
   algo/polytimos/polytimos.c \
   algo/quark/quark.c \
-  algo/qubit/qubit.c \
-  algo/qubit/deep.c \
   algo/ripemd/sph_ripemd.c \
   algo/scrypt.c \
   algo/scryptjane/scrypt-jane.c \
@@ -127,22 +110,17 @@ cpuminer_SOURCES = \
   algo/shabal/sph_shabal.c \
   algo/shavite/sph_shavite.c \
   algo/shavite/shavite.c \
-  algo/simd/sph_simd.c \
-  algo/simd/sse2/nist.c \
-  algo/simd/sse2/vector.c \
   algo/skein/sph_skein.c \
   algo/skein/skein-hash-4way.c \
   algo/skein/skein.c \
   algo/skein/skein-4way.c \
-  algo/skein/skein-gate.c \  
+  algo/skein/skein-gate.c \
   algo/skein/skein2.c \
   algo/skein/skein2-4way.c \
   algo/skein/skein2-gate.c \
   algo/skunk.c \
   algo/sm3/sm3.c \
   algo/tiger/sph_tiger.c \
-  algo/timetravel.c \
-  algo/timetravel10.c \
   algo/tribus/tribus-gate.c \
   algo/tribus/tribus.c \
   algo/tribus/tribus-4way.c \
@@ -153,17 +131,6 @@ cpuminer_SOURCES = \
   algo/whirlpool/whirlpool-4way.c \
   algo/whirlpool/whirlpool.c \
   algo/whirlpool/whirlpoolx.c \
-  algo/x11/phi1612.c \
-  algo/x11/x11.c \
-  algo/x11/x11evo.c \
-  algo/x11/x11gost.c \
-  algo/x11/c11.c \
-  algo/x13/x13.c \
-  algo/x13/x13sm3.c \
-  algo/x14/x14.c \
-  algo/x15/x15.c \
-  algo/x17/x17.c \
-  algo/xevan.c \
   algo/yescrypt/yescrypt.c \
   algo/yescrypt/sha256_Y.c\
   algo/yescrypt/yescrypt-simd.c\
@@ -191,8 +158,8 @@ if HAVE_WINDOWS
    cpuminer_SOURCES += compat/winansi.c
 endif
 
-cpuminer_LDFLAGS	= @LDFLAGS@
-cpuminer_LDADD	= @LIBCURL@ @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@ -lssl -lcrypto -lgmp
+cpuminer_LDFLAGS  = @LDFLAGS@
+cpuminer_LDADD  = @LIBCURL@ @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@ -lssl -lcrypto -lgmp
 cpuminer_CPPFLAGS = @LIBCURL_CPPFLAGS@ $(ALL_INCLUDES)
 cpuminer_CFLAGS   = -Wno-pointer-sign -Wno-pointer-to-int-cast $(disable_flags)
 
@@ -211,8 +178,8 @@ common_ccflags = $(DEFS) $(ALL_INCLUDES) $(cpuminer_CPPFLAGS) $(CPPFLAGS) $(cpum
 
 # special CFLAGS (if you find a simpler way to do that tell me ;)
 cpuminer-neoscrypt.o: neoscrypt.c
-	@echo "CUSTOM ${@}: ${filter %.o,${^}} ${filter %.c,${^}}"
-	$(CC) $(common_ccflags) -g -O3 $(gprof_cflags) -MT $@ -MD -MP -c -o $@ $<
+  @echo "CUSTOM ${@}: ${filter %.o,${^}} ${filter %.c,${^}}"
+  $(CC) $(common_ccflags) -g -O3 $(gprof_cflags) -MT $@ -MD -MP -c -o $@ $<
 
 
 endif
